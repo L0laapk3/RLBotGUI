@@ -204,7 +204,7 @@ class BotpackUpdater:
 
         self.total_steps = len(releases_to_download)
         with tempfile.TemporaryDirectory() as tmpdir:
-            with mp.Pool(15) as p:
+            with mp.Pool(min(15, len(releases_to_download))) as p:
                 for tag in p.imap(partial(self.download_single, tmpdir, repo_url), releases_to_download):
 
                     if tag is False:
